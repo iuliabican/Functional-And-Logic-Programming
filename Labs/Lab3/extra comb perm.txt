@@ -1,0 +1,42 @@
+%comb(l1l2...ln)=
+%    1. [], empty list
+%    2. comb(l2..ln)
+%    3. l1 (+) comb(l2...ln),
+
+%comb(L:List, K:Integer, C:List)
+%(i,i,o) -nedeterministic
+%comb([H|_], [H]).
+%comb([_|T],T2):-
+%    comb(T,T2).
+%comb([H|T],[H|T2]):-
+%   comb(T,T2).
+
+%allcombinations(L, R) :-
+ %   findall(RPartial, comb(L, RPartial), R).
+
+%----
+%appendlist(E,L,[E|L]).
+%appendlist(E, [H|T], [H|Rez]) :- appendlist(E, T, Rez).
+
+%perm([], []).
+%perm([E|T], P) :- perm(T, L),
+%    appendlist(E, L, P).
+%------
+
+remove([H | T], H, T).
+
+remove([H | T], E, [H | Tr]) :-
+    remove(T, E, Tr).
+
+
+perm(0, []).
+
+perm(N, X) :-
+    N > 0,
+    N1 is N - 1,
+    perm(N1, Y),
+    remove(X, N, Y).
+
+getPerm(N, X) :-
+    findall(Y, perm(N, Y), X),
+    write(X).

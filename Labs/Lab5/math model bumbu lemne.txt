@@ -1,0 +1,15 @@
+heightOfTree(l1l2l3...ln) = { 0 if l1 is empty or l2 is empty and l3 is empty
+                   	max(1 + height(l2), 1 + height(l3)) otherwise }
+
+
+myLength(l1l2l3...ln) = { 0, if n = 0
+			 1 + myLength(l2l3...ln), otherwise
+
+createListOfNodes(l1l2l3...ln, level) =  { [l1] if level = 0
+                                      	   createListOfNodes(l2, level - 1) U createListOfNodes(l3, level - 1), otherwise
+
+
+maximumLevelOfTree(l1l2l3..ln, level, nodeList, maxNodes, maxLevel) =
+        [maxLevel, nodeList] if currentLevel = 0                                                              
+        maximumLevelOfTree(l1l2l3...ln, level - 1, nodeList, maxNodes, maxLevel), if myLength(p1p2p3...pn) < maxNodes, where p1p2...pn = createListOfNodes(L, level)
+        maximumLevelOfTree(l1l2l3...ln, level - 1, p1p2p3...pn, len(p1p2p3...pn), level), otherwise, where p1p2...pn = createListOfNodes(L, level)
